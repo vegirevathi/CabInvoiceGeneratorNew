@@ -23,4 +23,15 @@ public class CabInvoiceGeneratorTest {
         double totalFare = cabInvoiceGenerator.totalFare(distance, time);
         Assert.assertEquals(5,totalFare,0.0);
     }
+
+    @Test
+    public void givenMultipleRides_ShouldReturnTotalFare() {
+        CabInvoiceGenerator cabInvoiceGenerator = new CabInvoiceGenerator();
+        Rides[] rides = {
+                        new Rides(2.0, 5),
+                        new Rides(0.1, 1)
+        };
+        double fare = cabInvoiceGenerator.totalFare(rides);
+        Assert.assertEquals(30, fare, 0.0);
+    }
 }
