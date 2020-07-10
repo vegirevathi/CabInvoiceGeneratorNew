@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class CabInvoiceGeneratorTest {
+
     @Test
     public void givenInvoiceGeneratorShouldReturnTotalFare() {
         CabInvoiceGenerator cabInvoiceGenerator = new CabInvoiceGenerator();
