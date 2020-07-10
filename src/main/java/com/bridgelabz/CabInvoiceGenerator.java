@@ -27,6 +27,6 @@ public class CabInvoiceGenerator {
         for (Rides ride : rides) {
             totalFare += this.totalFare(ride.distance, ride.time);
         }
-        return null;
+        return new InvoiceSummary(rides.length, totalFare);
     }
 }
