@@ -22,11 +22,11 @@ public class CabInvoiceGenerator {
      * @param rides
      * @return
      */
-    public double totalFare(Rides[] rides) {
+    public InvoiceSummary totalFare(Rides[] rides) {
         double totalFare =0;
         for (Rides ride : rides) {
             totalFare += this.totalFare(ride.distance, ride.time);
         }
-        return totalFare;
+        return null;
     }
 }
