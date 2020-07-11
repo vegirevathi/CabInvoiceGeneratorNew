@@ -1,6 +1,4 @@
-package com.bridgelabz;
-
-import java.util.Objects;
+package com.bridgelabz.model;
 
 public class InvoiceSummary {
     public double averageFare;
