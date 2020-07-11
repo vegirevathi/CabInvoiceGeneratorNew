@@ -40,4 +40,17 @@ public class CabInvoiceGeneratorTest {
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
+
+    @Test
+    public void givenUserIdAndRides_ShouldReturnInvoiceSummary() {
+        String userId = "Abcd@.com";
+        Rides[] rides = {
+                new Rides(2.0, 5),
+                new Rides(0.1, 1)
+        };
+        cabInvoiceGenerator.addRide(userId, rides);
+        InvoiceSummary summary = cabInvoiceGenerator.getInvoiceSummary(userId);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        Assert.assertEquals(expectedInvoiceSummary, summary);
+    }
 }
