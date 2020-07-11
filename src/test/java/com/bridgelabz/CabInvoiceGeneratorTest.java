@@ -3,6 +3,7 @@ package com.bridgelabz;
 import com.bridgelabz.model.InvoiceSummary;
 import com.bridgelabz.model.Rides;
 import com.bridgelabz.service.CabInvoiceGenerator;
+import com.bridgelabz.utility.CabCategory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

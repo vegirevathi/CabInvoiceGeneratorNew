@@ -3,16 +3,16 @@ package com.bridgelabz.service;
 import com.bridgelabz.model.InvoiceSummary;
 import com.bridgelabz.model.Rides;
 import com.bridgelabz.repository.RideRepository;
+import com.bridgelabz.utility.CabCategory;
 
 public class CabInvoiceGenerator {
 
-    private static final int COST_PER_TIME = 1;
-    private static final double MINIMUM_COST_PER_KM = 10;
-    private static final double MINIMUM_FARE = 5 ;
     RideRepository rideRepository;
+    private CabCategory cabCategory;
 
-    public CabInvoiceGenerator() {
+    public CabInvoiceGenerator(CabCategory cabCategory) {
         this.rideRepository = new RideRepository();
+        this.cabCategory = cabCategory;
     }
 
     /**
@@ -22,8 +22,7 @@ public class CabInvoiceGenerator {
      * @return
      */
     public double totalFare(double distance, int time) {
-        double totalFare = distance * MINIMUM_COST_PER_KM + time * COST_PER_TIME;
-        return Math.max(totalFare, MINIMUM_FARE);
+        return cabCategory.totalFare(distance, time);
     }
 
     /**
