@@ -9,18 +9,20 @@ import org.junit.Test;
 
 public class CabInvoiceGeneratorTest {
 
-    CabInvoiceGenerator cabInvoiceGenerator;
+    CabInvoiceGenerator normalCabInvoiceGenerator;
+    CabInvoiceGenerator premiumCabInvoiceGenerator;
 
     @Before
     public void setUp() throws Exception {
-        cabInvoiceGenerator = new CabInvoiceGenerator();
+        normalCabInvoiceGenerator = new CabInvoiceGenerator(CabCategory.NORMAL);
+        premiumCabInvoiceGenerator = new CabInvoiceGenerator(CabCategory.PREMIUM);
     }
 
     @Test
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
         double distance = 3.0;
         int time = 10;
-        double totalFare = cabInvoiceGenerator.totalFare(distance, time);
+        double totalFare = normalCabInvoiceGenerator.totalFare(distance, time);
         Assert.assertEquals(40,totalFare,0.0);
 
     }
@@ -29,7 +31,7 @@ public class CabInvoiceGeneratorTest {
     public void givenLessDistanceAndTime_ShouldReturnMinFare() {
         double distance = 0.1;
         int time = 1;
-        double totalFare = cabInvoiceGenerator.totalFare(distance, time);
+        double totalFare = normalCabInvoiceGenerator.totalFare(distance, time);
         Assert.assertEquals(5,totalFare,0.0);
     }
 
@@ -39,7 +41,7 @@ public class CabInvoiceGeneratorTest {
                 new Rides(2.0, 5),
                 new Rides(0.1, 1)
         };
-        InvoiceSummary summary = cabInvoiceGenerator.totalFare(rides);
+        InvoiceSummary summary = normalCabInvoiceGenerator.totalFare(rides);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
@@ -51,9 +53,22 @@ public class CabInvoiceGeneratorTest {
                 new Rides(2.0, 5),
                 new Rides(0.1, 1)
         };
-        cabInvoiceGenerator.addRide(userId, rides);
-        InvoiceSummary summary = cabInvoiceGenerator.getInvoiceSummary(userId);
+        normalCabInvoiceGenerator.addRide(userId, rides);
+        InvoiceSummary summary = normalCabInvoiceGenerator.getInvoiceSummary(userId);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        Assert.assertEquals(expectedInvoiceSummary, summary);
+    }
+
+    @Test
+    public void givenUserIdAndRidesForPremium_ShouldReturnInvoiceSummary() {
+        String userId = "amp@.com";
+        Rides[] rides = {
+                new Rides(2.0, 5),
+                new Rides(0.1, 1)
+        };
+        premiumCabInvoiceGenerator.addRide(userId, rides);
+        InvoiceSummary summary = premiumCabInvoiceGenerator.getInvoiceSummary(userId);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 60.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 }
